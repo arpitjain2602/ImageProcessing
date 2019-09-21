@@ -1,0 +1,133 @@
+n=found;
+
+ccc=zeros(480,n);
+
+kelo=cat(2,ilu,ccc);
+cd=cat(2,kelo,jlu);
+
+
+
+if(noI>=noJ)
+    for k=1:1:noI
+        linesI{k}.jnt=0;
+    end
+    
+    for j=1:1:noJ
+        y4=linesJ{j}.point1;
+        y3=linesJ{j}.point1+fix((n*(linesJ{j}.vert)/(linesJ{j}.divide*2)));
+        diff=480;
+        found=0;
+        for k=1:1:noI
+            
+            if(linesI{k}.jnt==1)
+                y2=linesI{k}.point1-fix((n*(linesI{k}.vert)/(linesI{k}.divide*2)));
+                if(abs(y2-y3)>abs(diff))
+                    diff=y2-y3;
+                    found=k;
+                end
+                
+            end
+            
+        end
+        
+        if(abs(diff)>100)
+            for k=1:1:noI
+               y2=linesI{k}.point1-fix((n*(linesI{k}.vert)/(linesI{k}.divide*2)));
+                if(abs(y2-y3)>abs(diff))
+                    diff=y2-y3;
+                    found=k;
+                end
+            end
+                
+        end
+        
+        y1=linesI{found}.point1;
+        yold=y1;
+        for x=1:1:n
+            
+            y=y1+((y4-y1)*x/n);
+            
+            cd(y,x+stripsize)=1;%j
+            
+            if(yold-y1>1)
+                for yanna=y1:1:yold
+                    cd(yanna,x+stripsize)=1;%j
+                end
+            end
+            
+            if(y1-yold>1)
+                for yanna=yold:1:y1
+                    cd(yanna,x+stripsize)=1;%j
+                end
+            end
+        end
+        
+    end
+end
+
+
+                   
+            
+   
+if(noI<noJ)
+    for k=1:1:noJ
+        linesJ{k}.jnt=0;
+    end
+    
+    for j=1:1:noI
+        y4=linesI{j}.point1;
+        y3=linesI{j}.point1-fix((n*(linesI{j}.vert)/(linesI{j}.divide*2)));
+        diff=480;
+        found=0;
+        for k=1:1:noJ
+            
+            if(linesJ{k}.jnt==1)
+                y2=linesJ{k}.point1+fix((n*(linesJ{k}.vert)/(linesJ{k}.divide*2)));
+                if(abs(y2-y3)>abs(diff))
+                    diff=y2-y3;
+                    found=k;
+                end
+                
+            end
+            
+        end
+        
+        if(abs(diff)>100)
+            for k=1:1:noJ
+               y2=linesJ{k}.point1+fix((n*(linesJ{k}.vert)/(linesJ{k}.divide*2)));
+                if(abs(y2-y3)>abs(diff))
+                    diff=y2-y3;
+                    found=k;
+                end
+            end
+                
+        end
+        
+        y1=linesJ{found}.point1;
+        yold=y1;
+        for x=1:1:n
+            
+            y=y4+((y1-y4)*x/n);
+            
+            cd(y,x+stripsize)=1;%j
+            
+            if(yold-y1>1)
+                for yanna=y1:1:yold
+                    cd(yanna,x+stripsize)=1;%j
+                end
+            end
+            
+            if(y1-yold>1)
+                for yanna=yold:1:y1
+                    cd(yanna,x+stripsize)=1;%j
+                end
+            end
+        end
+        
+    end
+end
+        
+        
+            
+            
+            
